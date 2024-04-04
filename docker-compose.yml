@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  app:
+    image: ${DOCKER_IMAGE_NAME}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - CONNECTION_STRING=Data Source=localhost;Initial Catalog=Tags;Integrated Security=True
+      - STACKOVERFLOW_API_BASE_URL=https://api.stackexchange.com/2.3/
+
+  db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    ports:
+      - "1433:1433"
+    environment:
+      - SA_PASSWORD=YourStrongPassword
+
+volumes:
+  app_data:
